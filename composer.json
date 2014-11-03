@@ -1,5 +1,5 @@
 {
-    "name": "JO-EntityFormManager",
+    "name": "JO/EntityFormManager",
     "description": "Form manager for nette forms",
 	"type": "library",
     "version": "0.1.0",
