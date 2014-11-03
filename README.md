@@ -1,8 +1,37 @@
 # Form manager Nette Forms
 
-Tested on nette kdydby doctrine
+Tested on nette kdyby doctrine
 
+## Description
 
+Fuctions :
+
+* register form fields to nette form
+* fill form field labels
+* create entity from form data
+* modify entity by form data
+* create entity form associated fields
+* automatically
+
+### field registration
+
+Rules
+* @ORM\ManyToOne(targetEntity="Entity\Company\CompanyProduction") for associated entity fields register select box.
+* @ORM\Column(type="date") - register date column
+* @ORM\Column(type="text") - regiter text area
+* @ORM\Column(type="boolean") - register check box
+* other - register input text
+
+Automatically generated from labels by #formLabel="some label"
+```
+	**
+	 * #formLabel="materiál" UI form label
+	 *
+	 * @ORM\ManyToOne(targetEntity="\Entity\Jobs\Material")
+	 * @ORM\JoinColumn(name="material_id",referencedColumnName="id",nullable=false,onDelete="CASCADE")
+	 *
+	 */
+```
 
 
 ## Form manager and form builder Example
@@ -76,14 +105,14 @@ class FormBuilder extends FormFactory
 		$man->createFields(array('surcharge','companyProduction','note'), $itemsIsWhitelist=true,$container=null,$autoRequire=true);
 
 		$man->getFormElement('surcharge')
-				->addRule(\Nette\Forms\Form::FLOAT,"Fill surcharge");
+				->addRule(\Nette\Forms\Form::FLOAT,"Vyplňte pole přirážka % prosím");
 
 		//get form element by form manager
 		$companySelect = $man->getFormElement('companyProduction');
 		/* @var $companySelect \Nette\Forms\Controls\SelectBox */
 
 		$companySelect
-				->setRequired("Choose company");
+				->setRequired("Vyber firmu");
 
 		return $this->getForm();
 	}
@@ -119,7 +148,7 @@ public function actionAdd($material_id=null)
 		/* @var $form Form */
 
 		//create instance of entity form manager
-		$this->formManager = $this->getFormManager($form, $this->entityName);
+		$this->formManager = new EntityFormManager($form, $this->entityName, $this->entityManager);
 
 		$form->addSubmit(FormBuilder::SUBMIT_ADD, "add surcharge")
 				->onClick[] = callback($this,'add');
@@ -128,6 +157,7 @@ public function actionAdd($material_id=null)
 }
 
 /**
+ * Form callback
  * Create entity from form data and save entity
  */
 public function add(SubmitButton $button)
@@ -146,20 +176,5 @@ public function add(SubmitButton $button)
 
 		//save entity now
 }
-
-
-BasePresenter
-	/**
-	 *
-	 * @param Form $form
-	 * @param string $entitytClassName
-	 * @return EntityFormManager
-	 */
-	protected function getFormManager($form,$entitytClassName,$prefix=  EntityFormManager::FORM_FIELD_PREFIX)
-	{
-		$man = new EntityFormManager($form, $entitytClassName, $this->entityManager,$prefix);
-		$man->setRequiredMsgTpl("Vyplňte ".EntityFormManager::REQUIRE_VAR." prosím");
-		return $man;
-	}
 
 ```
