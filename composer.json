@@ -1,6 +1,6 @@
 {
-    "name": "JO/EntityFormManager",
-    "description": "Form manager for nette forms",
+    "name": "jo/entityformmanager",
+    "description": "Entity form manager for nette forms",
 	"type": "library",
     "version": "0.1.0",
     "keywords": ["nette forms, doctrine , entity"],
