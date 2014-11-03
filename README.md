@@ -4,7 +4,7 @@ Tested on nette kdyby doctrine
 
 ## Description
 
-Fuctions :
+Functions :
 
 * register form fields to nette form
 * fill form field labels
