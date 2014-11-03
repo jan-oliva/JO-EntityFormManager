@@ -3,7 +3,7 @@
     "description": "Entity form manager for nette forms",
 	"type": "library",
     "version": "0.1.0",
-    "keywords": ["nette forms, doctrine , entity"],
+    "keywords": ["nette","forms","doctrine","entity"],
     "homepage": "https://github.com/jan-oliva/JO-EntityFormManager",
     "license": "proprietary",
 	"authors": [
