@@ -33,8 +33,121 @@ Automatically generated from labels by #formLabel="some label"
 	 */
 ```
 
+### interface description
 
-## Form manager and form builder Example
+	 /**
+	 * Creates entity and fill fomm values
+	 * @param array $excludeInputs
+	 * @param \Nette\Forms\Container $container
+	 * @return object Entity
+	 */
+	public function createEntityFromForm($excludeInputs = array(), \Nette\Forms\Container $container = null)
+
+	/**
+	 * Register form fields by entity.
+	 * For associed fileds creates input select
+	 * For boolean fields creates checkbox
+	 * For datetime fields try call addDatePicker for show date picker
+	 * For other columns creates input text
+	 *
+	 * @param array $exclude
+	 * @param bool $itemsIsWhitelist - determine wheter items are white list or blacklist
+	 * @param \Nette\Forms\Container $container If given, fields will be registered into container
+	 * @param bool $autoRequire  - allow automatically set required fields with message (EntityFormManager::setRequiredMsgTpl())
+	 */
+	public function createFields($items = array(), $itemsIsWhitelist = false, \Nette\Forms\Container $container = null,$autoRequire=false)
+
+	/**
+	 * Fill entity by form values
+	 * Attention - Fill only fields which has noassociation and scalar values
+	 *
+	 * @param object $entity
+	 * @param array $excludeInputs
+	 * @return object Entity
+	 */
+	public function fillEntityFromForm($entity, $excludeInputs = array(), \Nette\Forms\Container $container = null)
+
+	/**
+	 * Fill form values from given entity.
+	 *
+	 * Accept
+	 *  - scalar  values
+	 *  - \DateTime object
+	 * Other typs are skipped and form fileds not filled
+	 *
+	 * @param object $entity
+	 * @param \Nette\Forms\Container $container
+	 * @param bool $fillAssoc fill fields with association
+	 * @param string $locale - locale for \DateTime object. Example cs_CZ|en_US|sk_SK|hu_HU ...
+	 *
+	 */
+	public function fillFormFromEntity($entity, \Nette\Forms\Container $container = null, $fillAssoc = true, $locale = 'cs_CZ')
+
+	/**
+	 * Fill form field with association to other entity.
+	 * Usage for example on selectbox, id will filled form given entity.
+	 * Given entity class will be checked oposite to associated target entity.
+	 * On target entity is called method getId()
+	 *
+	 * @param string $elementName
+	 * @param object $entity - doctrine entity
+	 * @param \Nette\Forms\Container $container
+	 */
+	public function fillFormFromEntityAssoc($elementName,$entity, \Nette\Forms\Container $container = null)
+
+	/**
+	 *
+	 * @param string $elementName
+	 * @param \Nette\Forms\Container $container
+	 * @return type
+	 */
+	public function getElementValue($elementName,\Nette\Forms\Container $container=null)
+
+	/**
+	 * Return target entity instance of associated property.
+	 * Value of form (or Container) element is used as id of target entity.
+	 * Internaly use EntityManager::find(targetEnityClass,elemet::getValue())
+	 *
+	 * @param string $elementName
+	 * @param \Nette\Forms\Container $container
+	 * @return type
+	 */
+	public function getEntityFromAssoc($elementName, \Nette\Forms\Container $container = null)
+
+
+	/**
+	 *
+	 * @param string $prefix
+	 * @param array $exclude
+	 */
+	public function getFormCols($exclude = array())
+
+	/**
+	 * Return form or container element
+	 * @param string $elementName - element name without prefix
+	 * @param \Nette\Forms\Container $container
+	 * @return \Nette\Forms\Controls\BaseControl
+	 */
+	public function getFormElement($elementName,\Nette\Forms\Container $container=null)
+
+	/**
+	 * Set value of form element
+	 * @param string $elementName - element name without prefix
+	 * @param mixed $value
+	 * @param \Nette\Forms\Container $container
+	 * @return \JO\Nette\Doctrine\EntityFormManager
+	 */
+	public function setElementValue($elementName,$value,\Nette\Forms\Container $container=null)
+
+	/**
+	 * Template for reuired  fields
+	 *
+	 * @param string $requiredTpl - " some str %_caption_% ... "
+	 * @return \JO\Nette\Doctrine\EntityFormManager
+	 */
+	public function setRequiredMsgTpl($requiredTpl)
+
+### Form manager and form builder Example
 
 Doctrine entity
 
