@@ -11,7 +11,7 @@ Fuctions :
 * create entity from form data
 * modify entity by form data
 * create entity form associated fields
-* automatically
+* automatically generate required field text by tpl " some str %_caption_% ... "
 
 ### field registration
 
