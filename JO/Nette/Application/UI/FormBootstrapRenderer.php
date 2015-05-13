@@ -29,7 +29,7 @@ class FormBootstrapRenderer extends DefaultFormRenderer
 
 		if ($this->form !== $form) {
 			$this->form = $form;
-			$this->init();
+
 		}
 		$this->setupWrapers();
 		foreach ($this->form->getControls() as $control) {
