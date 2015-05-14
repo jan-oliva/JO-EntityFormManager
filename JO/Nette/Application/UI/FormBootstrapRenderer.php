@@ -34,18 +34,23 @@ class FormBootstrapRenderer extends DefaultFormRenderer
 
 		}
 		$this->setupWrapers();
-		$this->fieldsBootstraping();
+		$this->fieldsBootstraping($this->form);
 		$ret = parent::render($form, $mode);
 		return $ret;
 	}
 
-	public function fieldsBootstraping()
+	/**
+	 * Add required css classes
+	 * @param \Nette\Forms\Form $form
+	 *
+	 */
+	public function fieldsBootstraping(Form $form)
 	{
 		if($this->bootstraped){
 			return;
 		}
 
-		foreach ($this->form->getControls() as $control) {
+		foreach ($form->getControls() as $control) {
 			/* @var $control \Nette\Forms\Controls\TextInput */
 
 			$el = $control->getControlPrototype();
