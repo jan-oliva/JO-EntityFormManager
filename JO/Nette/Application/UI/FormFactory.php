@@ -20,7 +20,7 @@ class FormFactory
 
 	/**
 	 *
-	 * @var
+	 * @var \Nette\DI\IContainer
 	 */
 	protected $context;
 
@@ -29,6 +29,8 @@ class FormFactory
 	 * @var Form
 	 */
 	protected $form;
+
+	protected $defaultEntityManagerClass = '\Kdyby\Doctrine\EntityManager';
 
 	/**
 	 *
@@ -72,5 +74,29 @@ class FormFactory
 			$form->setTranslator($translator);
 
 		}
+	}
+
+	/**
+	 *
+	 * @param string $defaultEntityManagerClass - \Kdyby\Doctrine\EntityManager|\Doctrine\ORM\EntityManager
+	 */
+	public function setDefaultEntityManagerClass($defaultEntityManagerClass)
+	{
+		$this->defaultEntityManagerClass = $defaultEntityManagerClass;
+		return $this;
+	}
+
+	/**
+	 *
+	 * @return \Doctrine\ORM\EntityManager | \Kdyby\Doctrine\EntityManager
+	 */
+	public function getEntityManager()
+	{
+		$ret = $this->context->getByType($this->defaultEntityManagerClass);
+		if($ret instanceof \Doctrine\ORM\EntityManager){
+			return $ret;
+		}
+
+		throw new \RuntimeException("Unable get entity manager by type '{$this->defaultEntityManagerClass}'. Use ::setDefaultEntityManagerClass() to class correct class.");
 	}
 }
