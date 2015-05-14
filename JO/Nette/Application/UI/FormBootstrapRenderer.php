@@ -15,6 +15,8 @@ use Nette\Forms\Rendering\DefaultFormRenderer;
 class FormBootstrapRenderer extends DefaultFormRenderer
 {
 
+	protected $bootstraped = false;
+
 	protected function setupWrapers()
 	{
 		$this->wrappers['form']['container'] = "div class=row";
@@ -32,6 +34,17 @@ class FormBootstrapRenderer extends DefaultFormRenderer
 
 		}
 		$this->setupWrapers();
+		$this->fieldsBootstraping();
+		$ret = parent::render($form, $mode);
+		return $ret;
+	}
+
+	public function fieldsBootstraping()
+	{
+		if($this->bootstraped){
+			return;
+		}
+
 		foreach ($this->form->getControls() as $control) {
 			/* @var $control \Nette\Forms\Controls\TextInput */
 
@@ -49,8 +62,6 @@ class FormBootstrapRenderer extends DefaultFormRenderer
 
 			//btn btn-default
 		}
-		$ret = parent::render($form, $mode);
-		return $ret;
+		$this->bootstraped = true;
 	}
-
 }
