@@ -266,6 +266,11 @@ class EntityFormManager
 		return $this->formFieldPrefix . $prop;
 	}
 
+	public function getInputLabel($prop)
+	{
+		return $this->parseFormLabel($prop);
+	}
+
 	/**
 	 * Creates entity and fill fomm values
 	 * @param array $excludeInputs
