@@ -93,6 +93,39 @@ class EntityFormManager
 	}
 
 	/**
+	 *
+	 * @param int $dateType
+	 * @return $this
+	 */
+	public function setDateType($dateType)
+	{
+		$this->dateType = $dateType;
+		return $this;
+	}
+
+	/**
+	 *
+	 * @param int $timeType
+	 * @return $this
+	 */
+	public function setTimeType($timeType)
+	{
+		$this->timeType = $timeType;
+		return $this;
+	}
+
+	/**
+	 *
+	 * @param string $timeZone
+	 * @return $this
+	 */
+	public function setTimeZone($timeZone)
+	{
+		$this->timeZone = $timeZone;
+		return $this;
+	}
+
+	/**
 	 * Template for reuired  fields
 	 *
 	 * @param string $requiredTpl - " some str %_caption_% ... "
