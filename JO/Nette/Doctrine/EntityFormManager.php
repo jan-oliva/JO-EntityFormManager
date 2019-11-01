@@ -69,6 +69,12 @@ class EntityFormManager
 	 */
 	protected $metaData;
 	private $dateType = \IntlDateFormatter::MEDIUM;
+
+	/**
+	 * IntlDateFormatter pattern
+	 * @var string
+	 */
+	private $datePattern = 'd.M.yyyy';
 	private $timeType = \IntlDateFormatter::NONE;
 	private $timeZone = 'Europe/Prague';
 
@@ -93,6 +99,17 @@ class EntityFormManager
 	}
 
 	/**
+	 * format for IntlDateFormatter::setPattern
+	 * @param string $datePattern
+	 * @return $this
+	 */
+	public function setDatePattern($datePattern)
+	{
+		$this->datePattern = $datePattern;
+		return $this;
+	}
+
+		/**
 	 *
 	 * @param int $dateType
 	 * @return $this
@@ -429,6 +446,9 @@ class EntityFormManager
 				//\Nette\Diagnostics\Debugger::barDump($val);
 				if ($val instanceof \DateTime) {
 					$fmt = new \IntlDateFormatter($locale, $this->dateType, $this->timeType, $this->timeZone);
+					if(!empty($this->datePattern)) {
+						$fmt->setPattern($this->datePattern);
+					}
 					$element->setValue($fmt->format($val));
 				} elseif (is_scalar($val)) {
 					$element->setValue($val);
