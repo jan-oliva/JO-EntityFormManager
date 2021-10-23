@@ -368,9 +368,13 @@ class EntityFormManager
 				continue;
 			}
 			$type = $this->metaData->getTypeOfColumn($keyTest);
-
-			//datetime musi byt instance DateTime nebo null
-			if (($type === 'datetime' || $type === 'date') && $val === '') {
+            if (
+                ($type === 'float' || $type === 'integer'  || $type === 'bigint' || $type === 'integer' || $type === 'smallint')
+                && $val === ''
+            ) {
+                $val = null;
+            } elseif (($type === 'datetime' || $type === 'date') && $val === '') {
+                //datetime must be instance DateTime nebo null
 				$val = null;
 			} elseif (($type === 'datetime' || $type === 'date') && $val !== '') {
 				$val = new \DateTime($val);
